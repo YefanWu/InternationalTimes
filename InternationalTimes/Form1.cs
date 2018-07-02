@@ -45,6 +45,7 @@ namespace InternationalTimes
             //Start the timer.
             timer1.Enabled= true;
             lbStatus.Text = "Running...";
+            UpdateTimes(); //Update all the times for the first time click start button.
             timer1.Start();
         }
 
@@ -57,14 +58,16 @@ namespace InternationalTimes
 
         public void CheckType()
         {
+            //Check datatype in the textbox.
             string boxValue = boxFreq.Text;
 
             try
             {
-                Convert.ToInt32(boxValue.Trim());
+                Convert.ToInt32(boxValue.Trim()); //see if the string in textbox can be converted to integer. 
             }
             catch (Exception)
             {
+                //Reset to 1 sencond and continue running when error occur.
                 MessageBox.Show("Only numbers for frequency! Setting to default 1 second.");
                 timer1.Interval = 1000;
                 boxFreq.Text = "1";
@@ -72,6 +75,12 @@ namespace InternationalTimes
         }
 
         private void timer1_Tick(object sender, EventArgs e)
+        {
+
+            UpdateTimes(); //Update times when tick.
+        }
+
+        private void UpdateTimes()
         {
             bool summer;
             summer = WinterTime();
@@ -90,11 +99,6 @@ namespace InternationalTimes
                 timeCST = timeUTC.AddHours(-6);
                 timeEST = timeUTC.AddHours(-5);
             }
-            UpdateTimes();
-        }
-
-        private void UpdateTimes()
-        {
             //Update lables with corresponding time.
             lbLocalTime.Text = Convert.ToString(timeLocal);
             lbUTCtime.Text = Convert.ToString(timeUTC);
