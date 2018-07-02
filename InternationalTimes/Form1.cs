@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace InternationalTimes
 {
+    //Written by David Wu July 2nd.
+    //Show current times in 6 time zones.
     public partial class Form1 : Form
     {
         //Initialize times.
